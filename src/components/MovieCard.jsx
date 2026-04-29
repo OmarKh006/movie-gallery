@@ -21,6 +21,7 @@ function MovieCard({ movie }) {
         <h3>{movie.title}</h3>
         <p>{movie.release_date}</p>
       </div>
+      <hr />
     </div>
   );
 }
