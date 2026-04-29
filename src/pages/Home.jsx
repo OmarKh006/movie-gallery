@@ -24,9 +24,26 @@ export default function Home() {
     loadPopularMovies();
   }, []);
 
-  const searchHandle = (event) => {
+  const searchHandle = async (event) => {
     event.preventDefault();
-    alert(searchQuery);
+
+    if (!searchQuery.trim()) return;
+    if (loading) return;
+
+    setLoading(true);
+
+    try {
+      const searchResults = await searchMovies(searchQuery);
+      setMovies(searchResults.results);
+      setError(null);
+    } catch (err) {
+      console.log(err);
+      setError("Failed to search..");
+    } finally {
+      setLoading(false);
+    }
+
+    setSearchQuery("");
   };
 
   return (
